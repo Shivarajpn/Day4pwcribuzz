@@ -1,17 +1,3 @@
-"""
-cricbuzz_score.py
-Week 1 - Day 3 - Task 1: Capture a Live Cricket Score with Playwright
-
-Flow:
-  Chromium --> Cricbuzz live-scores page --> WAIT for match links
-  --> group links into one CARD per match --> classify each card
-      (LIVE / COMPLETED / UPCOMING) --> print the LIVE card
-  --> score.png (the live card) + score_page.png (whole page)
-
-Run headed (watch it work):   python cricbuzz_score.py
-Run headless (no window):     python cricbuzz_score.py --headless
-"""
-
 import re
 import sys
 from datetime import datetime
@@ -83,15 +69,7 @@ def classify(text):
     return "UPCOMING"
 
 
-# =====================================================================
-# NEW STEP - group links into one card per match
-# =====================================================================
-# One match card contains several links (team name, "Live Score",
-# "Scorecard"...) that all point to the same matchId. Reading a single
-# <a> often gives only "Live Score". This JavaScript runs inside the page:
-# for each matchId it climbs up from the link to the BIGGEST parent that
-# still holds links to only that one match -> that parent is the card.
-# It tags each card with data-pw-card="<matchId>" so Python can find it.
+
 MARK_CARDS_JS = """
 (selector) => {
   const idOf = (a) => (a.getAttribute('href').match(/live-cricket-scores\\/(\\d+)/) || [])[1];
